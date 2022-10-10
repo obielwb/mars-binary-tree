@@ -1,0 +1,11 @@
+C:\Users\u21234\Desktop\MarsBinaryTree\bin\Debug\MarsBinaryTree.exe.config
+C:\Users\u21234\Desktop\MarsBinaryTree\bin\Debug\MarsBinaryTree.exe
+C:\Users\u21234\Desktop\MarsBinaryTree\bin\Debug\MarsBinaryTree.pdb
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.csproj.AssemblyReference.cache
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.csproj.SuggestedBindingRedirects.cache
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.MarsAirlines.resources
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.Properties.Resources.resources
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.csproj.GenerateResource.cache
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.csproj.CoreCompileInputs.cache
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.exe
+C:\Users\u21234\Desktop\MarsBinaryTree\obj\Debug\MarsBinaryTree.pdb
