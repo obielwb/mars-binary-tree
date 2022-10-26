@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarsBinaryTree.Properties
+namespace MarteArvoresBinarias.Properties
 {
 
 
