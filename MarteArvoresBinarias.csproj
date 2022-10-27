@@ -46,12 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArvoreDeBusca.cs" />
+    <Compile Include="Cidade.cs" />
+    <Compile Include="Funcionario.cs" />
+    <Compile Include="IRegistro.cs" />
+    <Compile Include="ListaSimples.cs" />
     <Compile Include="MarteArvoresBinarias.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MarteArvoresBinarias.Designer.cs">
       <DependentUpon>MarteArvoresBinarias.cs</DependentUpon>
     </Compile>
+    <Compile Include="NoArvore.cs" />
+    <Compile Include="NoLista.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MarteArvoresBinarias.resx">

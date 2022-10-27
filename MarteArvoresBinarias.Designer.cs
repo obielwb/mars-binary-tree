@@ -71,7 +71,7 @@
             this.marteTabControl.Location = new System.Drawing.Point(1, 2);
             this.marteTabControl.Name = "marteTabControl";
             this.marteTabControl.SelectedIndex = 0;
-            this.marteTabControl.Size = new System.Drawing.Size(1407, 661);
+            this.marteTabControl.Size = new System.Drawing.Size(1261, 677);
             this.marteTabControl.TabIndex = 0;
             // 
             // cadastroTabPage
@@ -104,15 +104,15 @@
             this.cadastroTabPage.Location = new System.Drawing.Point(4, 23);
             this.cadastroTabPage.Name = "cadastroTabPage";
             this.cadastroTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.cadastroTabPage.Size = new System.Drawing.Size(1399, 634);
+            this.cadastroTabPage.Size = new System.Drawing.Size(1253, 650);
             this.cadastroTabPage.TabIndex = 0;
             this.cadastroTabPage.Text = "Cadastro";
             // 
             // cidadePictureBox
             // 
-            this.cidadePictureBox.Location = new System.Drawing.Point(739, 15);
+            this.cidadePictureBox.Location = new System.Drawing.Point(697, 29);
             this.cidadePictureBox.Name = "cidadePictureBox";
-            this.cidadePictureBox.Size = new System.Drawing.Size(632, 298);
+            this.cidadePictureBox.Size = new System.Drawing.Size(539, 302);
             this.cidadePictureBox.TabIndex = 24;
             this.cidadePictureBox.TabStop = false;
             // 
@@ -318,7 +318,7 @@
             this.arvoreTabPage.Location = new System.Drawing.Point(4, 23);
             this.arvoreTabPage.Name = "arvoreTabPage";
             this.arvoreTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.arvoreTabPage.Size = new System.Drawing.Size(1399, 634);
+            this.arvoreTabPage.Size = new System.Drawing.Size(1253, 650);
             this.arvoreTabPage.TabIndex = 1;
             this.arvoreTabPage.Text = "Árvore";
             this.arvoreTabPage.UseVisualStyleBackColor = true;
@@ -327,7 +327,7 @@
             // 
             this.arvorePictureBox.Location = new System.Drawing.Point(6, 6);
             this.arvorePictureBox.Name = "arvorePictureBox";
-            this.arvorePictureBox.Size = new System.Drawing.Size(1387, 622);
+            this.arvorePictureBox.Size = new System.Drawing.Size(1241, 638);
             this.arvorePictureBox.TabIndex = 0;
             this.arvorePictureBox.TabStop = false;
             // 
@@ -336,11 +336,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1410, 662);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.marteTabControl);
             this.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1280, 720);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "MarteArvoresBinarias";
             this.Text = "Marte Árvores Binárias";
+            this.Load += new System.EventHandler(this.MarteArvoresBinarias_Load);
             this.marteTabControl.ResumeLayout(false);
             this.cadastroTabPage.ResumeLayout(false);
             this.cadastroTabPage.PerformLayout();
