@@ -5,11 +5,11 @@ using System;
 
 class NoArvore<T> : IComparable<NoArvore<T>> where T : IComparable<T>
 {
-    T dado;
-    NoArvore<T> esquerda;
-    NoArvore<T> direita;
-    int altura;
-    bool estaMarcadoParaMorrer;
+    private T dado;
+    private NoArvore<T> esquerda;
+    private NoArvore<T> direita;
+    private int altura;
+    private bool estaMarcadoParaMorrer;
 
     public NoArvore(T dado, NoArvore<T> esquerdo, NoArvore<T> direito, int altura)
     {

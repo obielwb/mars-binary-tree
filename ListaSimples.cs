@@ -5,9 +5,9 @@ using System;
 
 class ListaSimples<T> where T : IComparable<T>
 {
-    NoLista<T> primeiro, ultimo, atual, anterior;
-    int quantosNos;
-    bool primeiroAcessoDoPercurso;
+    private NoLista<T> primeiro, ultimo, atual, anterior;
+    private int quantosNos;
+    private bool primeiroAcessoDoPercurso;
 
     public ListaSimples()
     {
@@ -202,5 +202,6 @@ class ListaSimples<T> where T : IComparable<T>
     public NoLista<T> Ultimo { get => ultimo; set => ultimo = value; }
     public NoLista<T> Atual { get => atual; set => atual = value; }
     public NoLista<T> Anterior { get => anterior; set => anterior = value; }
-    public bool EstaVazia { get { return primeiro == null; } }
+    public int QuantosNos { get => quantosNos; set => quantosNos = value; }
+    public bool EstaVazia { get => primeiro == null; }
 }

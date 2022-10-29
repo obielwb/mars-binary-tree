@@ -4,44 +4,44 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 class Cidade : IComparable<Cidade>, IRegistro
 {
     public const int tamanhoNome = 15;
 
-    private int codigo;
     private string nome;
-    private decimal x, y;
+    private double x, y;
+    private ListaSimples<Caminho> caminhos;
 
-    private const int tamanhoRegistro = sizeof(int) + // código
-                                        tamanhoNome + // nome
-                                        sizeof(decimal) + // x
-                                        sizeof(decimal); // y
+    private const int tamanhoRegistro = tamanhoNome + // nome
+                                        sizeof(double) + // x
+                                        sizeof(double); // y
 
-    public int Codigo { get => codigo; set => codigo = value; }
     public string Nome { get => nome; set => nome = value; }
-    public decimal X { get => x; set => x = value; }
-    public decimal Y { get => y; set => y = value; }
+    public double X { get => x; set => x = value; }
+    public double Y { get => y; set => y = value; }
     public int TamanhoRegistro { get => tamanhoRegistro; }
+    internal ListaSimples<Caminho> Caminhos { get => caminhos; set => caminhos = value; }
 
     public Cidade()
     {
-        Codigo = 0;
         Nome = "";
-        X = Y = 0;
+        X = Y = 0.0d;
+        Caminhos = new ListaSimples<Caminho>();
     }
 
-    public Cidade(int codigo, string nome, decimal x, decimal y)
+    public Cidade(string nome, double x, double y)
     {
-        Codigo = codigo;
         Nome = nome;
         X = x;
         Y = y;
+        Caminhos = new ListaSimples<Caminho>();
     }
 
-    public Cidade(int codigo)
+    public Cidade(string nome)
     {
-        Codigo = codigo;
+        Nome = nome;
     }
 
     public int CompareTo(Cidade cidade)
@@ -51,7 +51,7 @@ class Cidade : IComparable<Cidade>, IRegistro
 
     public override string ToString()
     {
-        return Codigo + " " + Nome + " " + X.ToString().PadLeft(7, ' ') + Y.ToString().PadLeft(7, ' '); ;
+        return Nome + "\n" + Caminhos.QuantosNos + " caminho(s)";
     }
 
     public void LerRegistro(BinaryReader arquivo, long registro)
@@ -63,16 +63,12 @@ class Cidade : IComparable<Cidade>, IRegistro
                 long bytes = registro * TamanhoRegistro;
                 arquivo.BaseStream.Seek(bytes, SeekOrigin.Begin);
 
-                Codigo = arquivo.ReadInt32();
+                foreach (char letra in arquivo.ReadChars(tamanhoNome))
+                    if (letra != '\0')
+                        Nome += letra;
 
-                char[] nome = new char[tamanhoNome];
-                nome = arquivo.ReadChars(tamanhoNome);
-
-                foreach (char letra in nome)
-                    Nome += letra;
-
-                X = arquivo.ReadDecimal();
-                Y = arquivo.ReadDecimal();
+                X = arquivo.ReadDouble();
+                Y = arquivo.ReadDouble();
             }
             catch (Exception e)
             {
@@ -85,17 +81,40 @@ class Cidade : IComparable<Cidade>, IRegistro
     {
         if (arquivo != null)
         {
-            arquivo.Write(Codigo);
-
             char[] nome = new char[tamanhoNome];
 
-            for (int i = 0; i < tamanhoNome; i++)
+            for (int i = 0; i < Nome.Length; i++)
                 nome[i] = Nome[i];
 
             arquivo.Write(nome);
-
             arquivo.Write(X);
             arquivo.Write(Y);
+
+            // salva a cidade no arquivo predefinido "c:\\temp\\CidadesMarte.json" em formato JSON,
+            // a partir do conjunto de dados provenientes do .dat. dessa forma, o JSON é um reflexo das
+            // alterações feitas pelo usuário a cada execução do programa, mantendo sempre a versão mais atualizada
+            using (StreamWriter jsonCidades = new StreamWriter("c:\\temp\\CidadesMarte.json", true))
+            {
+                jsonCidades.WriteLine(JsonConvert.SerializeObject(this, Formatting.Indented));
+                jsonCidades.Close();
+            }
+
+            // iniciamos um percurso sequencial
+            Caminhos.IniciarPercursoSequencial();
+
+            while (Caminhos.PodePercorrer())
+            {
+                // instanciamos um escritor de arquivos binários de acordo com o nome do arquivo do caminho
+                BinaryWriter arquivoCaminhos =
+                        new BinaryWriter(
+                            new FileStream(Caminhos.Atual.Dado.NomeArquivo, FileMode.Append)
+                        );
+
+                // e gravamos o registro
+                Caminhos.Atual.Dado.GravarRegistro(arquivoCaminhos);
+
+                arquivoCaminhos.Close();
+            }
         }
     }
 }

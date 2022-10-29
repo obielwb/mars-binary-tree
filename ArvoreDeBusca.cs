@@ -10,9 +10,9 @@ using System.IO;
 
 class ArvoreDeBusca<Dado> where Dado : IComparable<Dado>, IRegistro, new()
 {
-    NoArvore<Dado> raiz, atual, antecessor;
-    int quantosNos;
-    Panel painelArvore;
+    private NoArvore<Dado> raiz, atual, antecessor;
+    private int quantosNos;
+    private Panel painelArvore;
 
     public Panel OndeExibir { get => painelArvore; set => painelArvore = value; }
 
@@ -266,32 +266,29 @@ class ArvoreDeBusca<Dado> where Dado : IComparable<Dado>, IRegistro, new()
         return EscreverAntecessores(Raiz, procurado);
     }
 
-    public void DesenharArvore(bool primeiraVez, NoArvore<Funcionario> raiz,
+    public void DesenharArvore(bool primeiraVez, NoArvore<Dado> raiz,
                               int x, int y, double angulo, double incremento,
                               double comprimento, Graphics graphics)
     {
         int xf, yf;
         if (raiz != null)
         {
-            Pen caneta = new Pen(Color.Red);
             xf = (int)Math.Round(x + Math.Cos(angulo) * comprimento);
             yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
 
             if (primeiraVez)
                 yf = 25;
 
-            graphics.DrawLine(caneta, x, y, xf, yf);
-            Thread.Sleep(200);
+            graphics.DrawLine(new Pen(Color.Gray), x, y, xf, yf);
             DesenharArvore(false, raiz.Esquerda, xf, yf, Math.PI / 2 + incremento,
                                    incremento * 0.60, comprimento * 0.8, graphics);
             DesenharArvore(false, raiz.Direita, xf, yf, Math.PI / 2 - incremento,
                                     incremento * 0.6, comprimento * 0.8, graphics);
-            Thread.Sleep(100);
-            SolidBrush preenchimento = new SolidBrush(Color.MediumAquamarine);
-            graphics.FillEllipse(preenchimento, xf - 25, yf - 15, 42, 30);
+
+            graphics.FillRectangle(new SolidBrush(Color.LightGray), xf - 35, yf - 15, 85, 40);
             graphics.DrawString(Convert.ToString(raiz.Dado.ToString()),
                          new Font("Arial", 10),
-                         new SolidBrush(Color.Black), xf - 23, yf - 7);
+                         new SolidBrush(Color.Black), xf - 30, yf - 10);
         }
     }
 
@@ -387,9 +384,8 @@ class ArvoreDeBusca<Dado> where Dado : IComparable<Dado>, IRegistro, new()
     {
         raiz = null;
         Dado dado = new Dado();
-        FileStream origem = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
+        FileStream origem = new FileStream(nomeArquivo, FileMode.Open);
         BinaryReader arquivo = new BinaryReader(origem);
-        // MessageBox.Show("Tamanho do arquivo =" + origem.Length + "\n\nTamanho do registro = " + dado.TamanhoRegistro);
         int posicaoFinal = (int)origem.Length / dado.TamanhoRegistro - 1;
         Particionar(0, posicaoFinal, ref raiz);
         origem.Close();
@@ -417,6 +413,9 @@ class ArvoreDeBusca<Dado> where Dado : IComparable<Dado>, IRegistro, new()
     public void GravarArquivoDeRegistros(string nomeArquivo)
     {
         FileStream destino = new FileStream(nomeArquivo, FileMode.Create);
+        // limpamos o arquivo para garantir que os dados salvos
+        // são os dados atualizados e evitar duplicação de registros
+        destino.SetLength(0);
         BinaryWriter arquivo = new BinaryWriter(destino);
         GravarInOrdem(raiz);
         arquivo.Close();
